@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, {MarkerAnimated} from "react-native-maps";
+import MapView, {MarkerAnimated, Overlay} from "react-native-maps";
+import Geojson from 'react-native-geojson'
+const intersectionGeo = require('./intersections.json');
+const walksideGeo = require('./walkside.json');
 
 const styles = StyleSheet.create({
   page: {
@@ -22,22 +25,20 @@ const styles = StyleSheet.create({
 export default class Map extends Component {
   state = {
     region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
+      latitude: 49.282730,
+      longitude: -123.120735,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     }
   }
+
   render() {
     return (
       <MapView style={styles.map}
         region={this.state.region}
         >
-          <MarkerAnimated
-            coordinate={this.state.region}
-            title="Me"
-            description="Represents you"
-          />
+          <Geojson geojson={intersectionGeo} />
+          <Geojson geojson={walksideGeo} />
       </MapView>
     );
   }
